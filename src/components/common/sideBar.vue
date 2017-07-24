@@ -81,7 +81,12 @@ export default {
   },
   created () {
     this.active = this.$route.name
-    this.open = JSON.parse(localStorage.getItem('select'))
+    var select = JSON.parse(localStorage.getItem('select'))
+    if (select === null) {
+      this.open = []
+    } else {
+      this.open = select
+    }
   },
   methods: {
     select (name) {
