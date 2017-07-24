@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <Menu theme="dark" :active-name="active" :open-names="open">
+    <Menu theme="dark" accordion :active-name="active" :open-names="open" @on-open-change="select">
       <Submenu v-for="submenu in Menu" :key="submenu.index" :name="submenu.name">
         <template slot="title">
           <Icon :type="submenu.type"></Icon>
@@ -47,11 +47,11 @@ export default {
             {
               sub: '2-1',
               titles: '新增用户',
-              to: '/page1'
+              to: '/page4'
             }, {
               sub: '2-2',
               titles: '活跃用户',
-              to: '/page2'
+              to: '/page5'
             }
           ]
         }, {
@@ -62,15 +62,15 @@ export default {
             {
               sub: '3-1',
               titles: '新增和启动',
-              to: '/page1'
+              to: '/page6'
             }, {
               sub: '3-2',
               titles: '活跃分析',
-              to: '/page2'
+              to: '/page7'
             }, {
               sub: '3-3',
               titles: '时段分析',
-              to: '/page3'
+              to: '/page8'
             }
           ]
         }
@@ -81,7 +81,12 @@ export default {
   },
   created () {
     this.active = this.$route.name
-    this.open = ['1']
+    this.open = JSON.parse(localStorage.getItem('select'))
+  },
+  methods: {
+    select (name) {
+      localStorage.setItem('select', JSON.stringify(name))
+    }
   }
 }
 </script>
@@ -97,10 +102,10 @@ export default {
       padding: 14px 24px 14px 44px;
       margin: -14px -24px -14px -44px;
     }
-  .router-link-exact-active,
-  .router-link-active{
-    background-color: #2d8cf0;
-  }
+    .router-link-exact-active,
+    .router-link-active {
+      background-color: #2d8cf0;
+    }
   }
 }
 </style>
