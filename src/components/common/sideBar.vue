@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
-    <Menu theme="dark" accordion :active-name="active" :open-names="open" @on-open-change="select">
-      <Submenu v-for="submenu in Menu" :key="submenu.index" :name="submenu.name">
+    <Menu theme="dark" accordion :active-name="active" :open-names="open" @on-open-change="select" @on-select="isActive">
+      <Submenu v-for="submenu in leftMenu" :key="submenu.index" :name="submenu.name">
         <template slot="title">
           <Icon :type="submenu.type"></Icon>
           {{submenu.title}}
@@ -19,7 +19,7 @@
 export default {
   data () {
     return {
-      Menu: [
+      leftMenu: [
         {
           name: '1',
           type: 'ios-paper',
@@ -81,6 +81,7 @@ export default {
   },
   created () {
     this.active = this.$route.name
+
     var select = JSON.parse(localStorage.getItem('select'))
     if (select === null) {
       this.open = []
@@ -91,7 +92,11 @@ export default {
   methods: {
     select (name) {
       localStorage.setItem('select', JSON.stringify(name))
+    },
+    isActive (name) {
+      console.log(name)
     }
+
   }
 }
 </script>
